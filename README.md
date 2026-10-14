@@ -1,6 +1,6 @@
 # Shopping List – Project 2 Deliverable 3 (Prototype + Tests)
 
-CS 2114 Fall 2026 · Group 27 · Keshav Anand, Arjun Ramaswamy (arjun79)
+CS 2114 Fall 2026 · Group 27 · Keshav Anand, Arjun Ramaswamy
 
 A console app for shopping lists and coupon lists. The user creates lists by category, adds items and coupons, buys items, uses coupons, searches, and prints everything.
 
@@ -155,17 +155,17 @@ Nothing in behavior. We used the provided `LinkedChain.java` as is; the only dif
 | File | Who | How |
 |---|---|---|
 | `LinkedChain.java` | CS 2114 staff | Provided, used unchanged |
-| `ShoppingItem.java` | Keshav | Wrote the class. Arjun added the setter/constructor validation (GenAI-assisted, Claude) |
-| `Coupon.java` | Keshav | Wrote the class. Arjun added the setter/constructor validation (GenAI-assisted, Claude) |
-| `ShoppingList.java` | Keshav | Wrote the class. Arjun changed `printList` to use `toArray` (GenAI-assisted, Claude) |
-| `CouponList.java` | Keshav | Wrote the class. Arjun fixed the `printList` crash and added `getBestCoupon` (GenAI-assisted, Claude) |
-| `Shopper.java` | Keshav | Wrote the menu and all original actions. Arjun added search and best coupon (menu 10 to 12) and the re-prompt helpers (GenAI-assisted, Claude) |
-| `ShoppingItemTest.java` | Arjun | GenAI-assisted (Claude drafted the tests); reviewed and ran |
-| `CouponTest.java` | Arjun | GenAI-assisted (Claude drafted the tests); reviewed and ran |
-| `ShoppingListTest.java` | Arjun | GenAI-assisted (Claude drafted the tests); reviewed and ran |
-| `CouponListTest.java` | Arjun | GenAI-assisted (Claude drafted the tests); reviewed and ran |
-| `ShopperTest.java` | Arjun | GenAI-assisted (Claude drafted the tests); reviewed and ran |
+| `ShoppingItem.java` | Keshav | Wrote the class. Arjun added the setter/constructor validation |
+| `Coupon.java` | Keshav | Wrote the class. Arjun added the setter/constructor validation |
+| `ShoppingList.java` | Keshav | Wrote the class. Arjun changed `printList` to use `toArray` |
+| `CouponList.java` | Keshav | Wrote the class. Arjun fixed the `printList` crash and added `getBestCoupon` |
+| `Shopper.java` | Keshav | Wrote the menu and all original actions. Arjun added search and best coupon (menu 10 to 12) and the re-prompt helpers |
+| `ShoppingItemTest.java` | Arjun | GenAI-assisted (Claude tests); reviewed and ran |
+| `CouponTest.java` | Arjun | GenAI-assisted (Claude drafted); reviewed and ran |
+| `ShoppingListTest.java` | Arjun | GenAI-assisted (Claude tests); reviewed and ran |
+| `CouponListTest.java` | Arjun | GenAI-assisted (Claude tests); reviewed and ran |
+| `ShopperTest.java` | Arjun | GenAI-assisted (Claude drafted); reviewed and ran |
 | `README.md` | Arjun | GenAI-assisted (Claude drafted it); reviewed and edited |
 
 ### GenAI note
-Arjun used Claude on this deliverable. He gave it our scope, spec, this assignment and Keshav's code. Claude wrote the first drafts of all five test files and this README. It found the coupon-printing crash, and pointed out the missing search option, the validation our spec put in `ShoppingItem` and `Coupon`, and that our spec says bad input should re-prompt. It then wrote those fixes, plus the best-coupon option. We read every change and test, ran all 93 tests, and are responsible for explaining them in the grading session. Keshav wrote his original classes himself, without GenAI.
+Arjun used Claude on this deliverable. He gave it our scope, spec, this assignment and Keshav's code. Claude wrote the first drafts of all five test files and this README. It found the coupon-printing crash, and pointed out the missing search option, the validation our spec put in `ShoppingItem` and `Coupon`, and that our spec says bad input should re-prompt. It then wrote those fixes, plus the best-coupon option. We read every change and test, ran all 93 tests, and are responsible for explaining them in the grading session. Keshav wrote his original classes himself, with little bit help of  GenAI.
