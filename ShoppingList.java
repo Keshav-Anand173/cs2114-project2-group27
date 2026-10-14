@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 
 // -------------------------------------------------------------------------
 /**
@@ -6,8 +7,6 @@
  * @author Keshav Anand
  * @version 10.14.2026
  */
-import java.text.NumberFormat;
-
 public class ShoppingList {
     // ~ Fields ................................................................
     private String category;
@@ -16,7 +15,7 @@ public class ShoppingList {
     // ~ Constructors ..........................................................
     /**
      * Creates an empty shopping list.
-     **
+     *
      * @param category
      *            the list's category
      */
@@ -34,7 +33,7 @@ public class ShoppingList {
     /**
      * Returns the list's category.
      *
-     * * @return the category
+     * @return the category
      */
     public String getCategory() {
         return category;
@@ -88,9 +87,9 @@ public class ShoppingList {
 
 
     /**
-     * * Returns the number of items in *he list.
+     * Returns the number of items in the list.
      *
-     * @return the*number of items
+     * @return the number of items
      */
     public int getSize() {
         return shoppingList.size();
@@ -98,9 +97,9 @@ public class ShoppingList {
 
 
     /**
-     * * Determines whether the list is*empty.
+     * Determines whether the list is empty.
      *
-     * @return true *f the list is empty
+     * @return true if the list is empty
      */
     public boolean isEmpty() {
         return shoppingList.isEmpty();
@@ -118,9 +117,11 @@ public class ShoppingList {
             System.out.println("list is empty");
         }
         else {
-            for (int i = 0; i < getSize(); i++) {
-                System.out.println("Name: " + shoppingList.get(i).getName());
-                System.out.println("Price: " + money.format(shoppingList.get(i)
+            ShoppingItem[] items = shoppingList.toArray(
+                new ShoppingItem[getSize()]);
+            for (int i = 0; i < items.length; i++) {
+                System.out.println("Name: " + items[i].getName());
+                System.out.println("Price: " + money.format(items[i]
                     .getPrice()) + "\n");
             }
         }

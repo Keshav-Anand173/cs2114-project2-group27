@@ -1,9 +1,9 @@
-
 /**
  * Represents a list of coupons the user has
- **/
-import java.text.NumberFormat;
-
+ *
+ * @author Keshav Anand
+ * @version 10.14.2026
+ */
 public class CouponList {
     private String category;
     private LinkedChain<Coupon> couponList;
@@ -27,7 +27,7 @@ public class CouponList {
     /**
      * Returns the list's category
      *
-     * * @return the category
+     * @return the category
      */
     public String getCategory() {
         return category;
@@ -38,7 +38,7 @@ public class CouponList {
      * Adds a coupon to the list.
      *
      * @param coupon
-     *            the*coupon to add
+     *            the coupon to add
      */
     public void addCoupon(Coupon coupon) {
         couponList.add(coupon);
@@ -71,8 +71,7 @@ public class CouponList {
 
     /**
      * Returns the number of coupons.
-     * *
-     * 
+     *
      * @return the number of coupons
      */
     public int getSize() {
@@ -95,16 +94,34 @@ public class CouponList {
      * prints the coupon list
      */
     public void printList() {
-        NumberFormat money = NumberFormat.getCurrencyInstance();
         System.out.println("Category: " + category + "\n");
         if (isEmpty()) {
             System.out.println("list is empty");
         }
         else {
-            for (int i = 0; i < getSize(); i++) {
-                System.out.println("Coupon " + (i + 1) + "Discount: " + money
-                    .format(couponList.get(i).getDiscount() + "\n"));
+            Coupon[] coupons = couponList.toArray(new Coupon[getSize()]);
+            for (int i = 0; i < coupons.length; i++) {
+                System.out.println("Coupon " + (i + 1) + " Discount: "
+                    + coupons[i].getDiscount() + "%");
             }
         }
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Finds the coupon with the biggest discount
+     *
+     * @return the best coupon, or null if the list is empty
+     */
+    public Coupon getBestCoupon() {
+        Coupon[] coupons = couponList.toArray(new Coupon[getSize()]);
+        Coupon best = null;
+        for (Coupon coupon : coupons) {
+            if (best == null || coupon.getDiscount() > best.getDiscount()) {
+                best = coupon;
+            }
+        }
+        return best;
     }
 }

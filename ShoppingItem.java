@@ -24,9 +24,9 @@ public class ShoppingItem {
      */
     // ~ Constructors ..........................................................
     public ShoppingItem(String name, double price, String category) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
+        setName(name);
+        setPrice(price);
+        setCategory(category);
     }
 
 
@@ -71,6 +71,9 @@ public class ShoppingItem {
      * @param name
      */
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Item name cannot be empty.");
+        }
         this.name = name;
     }
 
@@ -82,6 +85,9 @@ public class ShoppingItem {
      * @param price
      */
     public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative.");
+        }
         this.price = price;
     }
 
@@ -93,6 +99,9 @@ public class ShoppingItem {
      * @param category
      */
     public void setCategory(String category) {
+        if (category == null || category.trim().isEmpty()) {
+            throw new IllegalArgumentException("Category cannot be empty.");
+        }
         this.category = category;
     }
 

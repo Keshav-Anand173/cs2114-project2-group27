@@ -21,8 +21,8 @@ public class Coupon {
      */
     // ~ Constructors ..........................................................
     public Coupon(String category, double discount) {
-        this.category = category;
-        this.discount = discount;
+        setCategory(category);
+        setDiscount(discount);
     }
 
 
@@ -56,6 +56,9 @@ public class Coupon {
      * @param category
      */
     public void setCategory(String category) {
+        if (category == null || category.trim().isEmpty()) {
+            throw new IllegalArgumentException("Category cannot be empty.");
+        }
         this.category = category;
     }
 
@@ -67,6 +70,10 @@ public class Coupon {
      * @param discount
      */
     public void setDiscount(double discount) {
+        if (discount < 0 || discount > 100) {
+            throw new IllegalArgumentException(
+                "Discount must be between 0 and 100.");
+        }
         this.discount = discount;
     }
 

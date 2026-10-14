@@ -37,6 +37,9 @@ public class Shopper {
             System.out.println("7. Remove shopping item");
             System.out.println("8. Remove coupon");
             System.out.println("9. Display all lists");
+            System.out.println("10. Search shopping item");
+            System.out.println("11. Search coupon");
+            System.out.println("12. Best coupon for a category");
             System.out.println("0. Quit");
             System.out.print("Choose an option: ");
 
@@ -47,38 +50,32 @@ public class Shopper {
                  * Create a shopping list.
                  */
                 if (choice == 1) {
-                    System.out.print("Shopping list category: ");
+                    String category = readText("Shopping list category: ",
+                        "Category cannot be empty.");
 
-                    String category = scanner.nextLine().trim();
+                    boolean duplicate = false;
 
-                    if (category.isEmpty()) {
-                        System.out.println("Category cannot be empty.");
+                    for (int i = 0; i < shoppingLists.size(); i++) {
+
+                        ShoppingList currentList = shoppingLists.get(i);
+
+                        if (currentList.getCategory().equalsIgnoreCase(
+                            category)) {
+
+                            duplicate = true;
+                        }
+                    }
+
+                    if (duplicate) {
+                        System.out.println("A shopping list with that "
+                            + "category already exists.");
                     }
                     else {
-                        boolean duplicate = false;
+                        ShoppingList newList = new ShoppingList(category);
 
-                        for (int i = 0; i < shoppingLists.size(); i++) {
+                        shoppingLists.add(newList);
 
-                            ShoppingList currentList = shoppingLists.get(i);
-
-                            if (currentList.getCategory().equalsIgnoreCase(
-                                category)) {
-
-                                duplicate = true;
-                            }
-                        }
-
-                        if (duplicate) {
-                            System.out.println("A shopping list with that "
-                                + "category already exists.");
-                        }
-                        else {
-                            ShoppingList newList = new ShoppingList(category);
-
-                            shoppingLists.add(newList);
-
-                            System.out.println("Shopping list created.");
-                        }
+                        System.out.println("Shopping list created.");
                     }
                 }
 
@@ -86,38 +83,32 @@ public class Shopper {
                  * Create a coupon list.
                  */
                 else if (choice == 2) {
-                    System.out.print("Coupon list category: ");
+                    String category = readText("Coupon list category: ",
+                        "Category cannot be empty.");
 
-                    String category = scanner.nextLine().trim();
+                    boolean duplicate = false;
 
-                    if (category.isEmpty()) {
-                        System.out.println("Category cannot be empty.");
+                    for (int i = 0; i < couponLists.size(); i++) {
+
+                        CouponList currentList = couponLists.get(i);
+
+                        if (currentList.getCategory().equalsIgnoreCase(
+                            category)) {
+
+                            duplicate = true;
+                        }
+                    }
+
+                    if (duplicate) {
+                        System.out.println("A coupon list with that "
+                            + "category already exists.");
                     }
                     else {
-                        boolean duplicate = false;
+                        CouponList newList = new CouponList(category);
 
-                        for (int i = 0; i < couponLists.size(); i++) {
+                        couponLists.add(newList);
 
-                            CouponList currentList = couponLists.get(i);
-
-                            if (currentList.getCategory().equalsIgnoreCase(
-                                category)) {
-
-                                duplicate = true;
-                            }
-                        }
-
-                        if (duplicate) {
-                            System.out.println("A coupon list with that "
-                                + "category already exists.");
-                        }
-                        else {
-                            CouponList newList = new CouponList(category);
-
-                            couponLists.add(newList);
-
-                            System.out.println("Coupon list created.");
-                        }
+                        System.out.println("Coupon list created.");
                     }
                 }
 
@@ -146,30 +137,16 @@ public class Shopper {
                             + "that category.");
                     }
                     else {
-                        System.out.print("Item name: ");
-                        String name = scanner.nextLine().trim();
+                        String name = readText("Item name: ",
+                            "Item name cannot be empty.");
+                        double price = readPrice();
 
-                        if (name.isEmpty()) {
-                            System.out.println("Item name cannot be empty.");
-                        }
-                        else {
-                            System.out.print("Item price: ");
+                        ShoppingItem item = new ShoppingItem(name,
+                            price, selectedList.getCategory());
 
-                            double price = Double.parseDouble(scanner.nextLine()
-                                .trim());
+                        selectedList.addItem(item);
 
-                            if (price < 0) {
-                                System.out.println("Price cannot be negative.");
-                            }
-                            else {
-                                ShoppingItem item = new ShoppingItem(name,
-                                    price, selectedList.getCategory());
-
-                                selectedList.addItem(item);
-
-                                System.out.println("Item added.");
-                            }
-                        }
+                        System.out.println("Item added.");
                     }
                 }
 
@@ -198,23 +175,14 @@ public class Shopper {
                             + "that category.");
                     }
                     else {
-                        System.out.print("Discount percentage: ");
+                        double discount = readDiscount();
 
-                        double discount = Double.parseDouble(scanner.nextLine()
-                            .trim());
+                        Coupon coupon = new Coupon(selectedList
+                            .getCategory(), discount);
 
-                        if (discount < 0 || discount > 100) {
-                            System.out.println("Discount must be between "
-                                + "0 and 100.");
-                        }
-                        else {
-                            Coupon coupon = new Coupon(selectedList
-                                .getCategory(), discount);
+                        selectedList.addCoupon(coupon);
 
-                            selectedList.addCoupon(coupon);
-
-                            System.out.println("Coupon added.");
-                        }
+                        System.out.println("Coupon added.");
                     }
                 }
 
@@ -243,37 +211,23 @@ public class Shopper {
                             + "that category.");
                     }
                     else {
-                        System.out.print("Item name: ");
-                        String name = scanner.nextLine().trim();
+                        String name = readText("Item name: ",
+                            "Item name cannot be empty.");
+                        double price = readPrice();
 
-                        if (name.isEmpty()) {
-                            System.out.println("Item name cannot be empty.");
+                        ShoppingItem item = new ShoppingItem(name,
+                            price, selectedList.getCategory());
+
+                        boolean removed = selectedList.removeItem(item);
+
+                        if (!removed) {
+                            System.out.println("Item not found.");
+                        }
+                        else if (choice == 5) {
+                            System.out.println("Item purchased.");
                         }
                         else {
-                            System.out.print("Item price: ");
-
-                            double price = Double.parseDouble(scanner.nextLine()
-                                .trim());
-
-                            if (price < 0) {
-                                System.out.println("Price cannot be negative.");
-                            }
-                            else {
-                                ShoppingItem item = new ShoppingItem(name,
-                                    price, selectedList.getCategory());
-
-                                boolean removed = selectedList.removeItem(item);
-
-                                if (!removed) {
-                                    System.out.println("Item not found.");
-                                }
-                                else if (choice == 5) {
-                                    System.out.println("Item purchased.");
-                                }
-                                else {
-                                    System.out.println("Item removed.");
-                                }
-                            }
+                            System.out.println("Item removed.");
                         }
                     }
                 }
@@ -303,30 +257,21 @@ public class Shopper {
                             + "that category.");
                     }
                     else {
-                        System.out.print("Discount percentage: ");
+                        double discount = readDiscount();
 
-                        double discount = Double.parseDouble(scanner.nextLine()
-                            .trim());
+                        Coupon coupon = new Coupon(selectedList
+                            .getCategory(), discount);
 
-                        if (discount < 0 || discount > 100) {
-                            System.out.println("Discount must be between "
-                                + "0 and 100.");
+                        boolean removed = selectedList.removeCoupon(coupon);
+
+                        if (!removed) {
+                            System.out.println("Coupon not found.");
+                        }
+                        else if (choice == 6) {
+                            System.out.println("Coupon used.");
                         }
                         else {
-                            Coupon coupon = new Coupon(selectedList
-                                .getCategory(), discount);
-
-                            boolean removed = selectedList.removeCoupon(coupon);
-
-                            if (!removed) {
-                                System.out.println("Coupon not found.");
-                            }
-                            else if (choice == 6) {
-                                System.out.println("Coupon used.");
-                            }
-                            else {
-                                System.out.println("Coupon removed.");
-                            }
+                            System.out.println("Coupon removed.");
                         }
                     }
                 }
@@ -375,6 +320,123 @@ public class Shopper {
                 }
 
                 /*
+                 * Search for a shopping item.
+                 */
+                else if (choice == 10) {
+                    System.out.print("Item category: ");
+                    String category = scanner.nextLine().trim();
+
+                    ShoppingList selectedList = null;
+
+                    for (int i = 0; i < shoppingLists.size(); i++) {
+
+                        ShoppingList currentList = shoppingLists.get(i);
+
+                        if (currentList.getCategory().equalsIgnoreCase(
+                            category)) {
+
+                            selectedList = currentList;
+                        }
+                    }
+
+                    if (selectedList == null) {
+                        System.out.println("No shopping list exists for "
+                            + "that category.");
+                    }
+                    else {
+                        String name = readText("Item name: ",
+                            "Item name cannot be empty.");
+                        double price = readPrice();
+
+                        ShoppingItem item = new ShoppingItem(name,
+                            price, selectedList.getCategory());
+
+                        if (selectedList.containsItem(item)) {
+                            System.out.println("Item found.");
+                        }
+                        else {
+                            System.out.println("Item not found.");
+                        }
+                    }
+                }
+
+                /*
+                 * Search for a coupon.
+                 */
+                else if (choice == 11) {
+                    System.out.print("Coupon category: ");
+                    String category = scanner.nextLine().trim();
+
+                    CouponList selectedList = null;
+
+                    for (int i = 0; i < couponLists.size(); i++) {
+
+                        CouponList currentList = couponLists.get(i);
+
+                        if (currentList.getCategory().equalsIgnoreCase(
+                            category)) {
+
+                            selectedList = currentList;
+                        }
+                    }
+
+                    if (selectedList == null) {
+                        System.out.println("No coupon list exists for "
+                            + "that category.");
+                    }
+                    else {
+                        double discount = readDiscount();
+
+                        Coupon coupon = new Coupon(selectedList
+                            .getCategory(), discount);
+
+                        if (selectedList.containsCoupon(coupon)) {
+                            System.out.println("Coupon found.");
+                        }
+                        else {
+                            System.out.println("Coupon not found.");
+                        }
+                    }
+                }
+
+                /*
+                 * Recommend the best coupon for a category.
+                 */
+                else if (choice == 12) {
+                    System.out.print("Coupon category: ");
+                    String category = scanner.nextLine().trim();
+
+                    CouponList selectedList = null;
+
+                    for (int i = 0; i < couponLists.size(); i++) {
+
+                        CouponList currentList = couponLists.get(i);
+
+                        if (currentList.getCategory().equalsIgnoreCase(
+                            category)) {
+
+                            selectedList = currentList;
+                        }
+                    }
+
+                    if (selectedList == null) {
+                        System.out.println("No coupon list exists for "
+                            + "that category.");
+                    }
+                    else {
+                        Coupon best = selectedList.getBestCoupon();
+
+                        if (best == null) {
+                            System.out.println("No coupons in that list.");
+                        }
+                        else {
+                            System.out.println("Best coupon: "
+                                + best.getDiscount() + "% off");
+                        }
+                    }
+                }
+
+                /*
                  * Quit the program.
                  */
                 else if (choice == 0) {
@@ -385,7 +447,7 @@ public class Shopper {
                  * Handle a menu number outside the valid range.
                  */
                 else {
-                    System.out.println("Please enter a number from 0 to 9.");
+                    System.out.println("Please enter a number from 0 to 12.");
                 }
             }
             catch (NumberFormatException exception) {
@@ -398,6 +460,75 @@ public class Shopper {
         }
 
         scanner.close();
+    }
+
+
+    /**
+     * Asks until the user types something
+     *
+     * @param prompt what to ask
+     * @param error what to say if it is empty
+     * @return what the user typed
+     */
+    private String readText(String prompt, String error) {
+        System.out.print(prompt);
+        String text = scanner.nextLine().trim();
+        while (text.isEmpty()) {
+            System.out.println(error);
+            System.out.print(prompt);
+            text = scanner.nextLine().trim();
+        }
+        return text;
+    }
+
+
+    /**
+     * Asks until the user types a number
+     *
+     * @param prompt what to ask
+     * @return the number
+     */
+    private double readNumber(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return Double.parseDouble(scanner.nextLine().trim());
+            }
+            catch (NumberFormatException exception) {
+                System.out.println(
+                    "Invalid input. Please enter a valid number.");
+            }
+        }
+    }
+
+
+    /**
+     * Asks until the user types a price that is not negative
+     *
+     * @return the price
+     */
+    private double readPrice() {
+        double price = readNumber("Item price: ");
+        while (price < 0) {
+            System.out.println("Price cannot be negative.");
+            price = readNumber("Item price: ");
+        }
+        return price;
+    }
+
+
+    /**
+     * Asks until the user types a discount from 0 to 100
+     *
+     * @return the discount
+     */
+    private double readDiscount() {
+        double discount = readNumber("Discount percentage: ");
+        while (discount < 0 || discount > 100) {
+            System.out.println("Discount must be between 0 and 100.");
+            discount = readNumber("Discount percentage: ");
+        }
+        return discount;
     }
 
 
