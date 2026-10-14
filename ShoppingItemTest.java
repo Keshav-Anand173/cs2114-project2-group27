@@ -1,20 +1,3 @@
-// Project 2 Deliverable 3 fall 2026
-// Virginia Tech Honor Code Pledge:
-//
-// As a Hokie, I will conduct myself with honor and integrity at all times.
-// I will not lie, cheat, or steal, nor will I accept the actions of those who
-// do.
-// -- Arjun Ramaswamy (arjun79)
-//
-// LLM Statement:
-//
-// During the preparation of this assignment, I, Arjun Ramaswamy, used Claude
-// to write these test cases.
-// After using this tool, I reviewed and edited the content as needed to ensure
-// its accuracy and take full responsibility for the content in relation to
-// grading. I understand that I am responsible for being able to complete this
-// work without the use of assistance.
-
 /**
  * Tests ShoppingItem
  *
